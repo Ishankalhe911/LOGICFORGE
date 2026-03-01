@@ -1,0 +1,82 @@
+[
+  {
+    "id": "p_001",
+    "title": "Find Maximum in Array",
+    "description": "Given an integer array, find and return the maximum element.\n\nExample:\nInput: [3, 1, 4, 1, 5, 9, 2, 6]\nOutput: 9\n\nConstraints:\n- Array can be empty\n- Array can have negative numbers\n- Array can have duplicate values",
+    "difficulty": 1,
+    "target_tags": ["missed_edge_case", "base_condition_flaw"],
+    "domain": "arrays"
+  },
+  {
+    "id": "p_002",
+    "title": "Sum of Array Elements",
+    "description": "Given an integer array, return the sum of all elements.\n\nExample:\nInput: [1, 2, 3, 4, 5]\nOutput: 15\n\nConstraints:\n- Array can be empty (return 0)\n- Array contains both positive and negative integers",
+    "difficulty": 1,
+    "target_tags": ["missed_edge_case", "off_by_one_error"],
+    "domain": "arrays"
+  },
+  {
+    "id": "p_003",
+    "title": "Reverse an Array",
+    "description": "Given an integer array, return the array reversed in-place.\n\nExample:\nInput: [1, 2, 3, 4, 5]\nOutput: [5, 4, 3, 2, 1]\n\nConstraints:\n- Must reverse in-place (no extra array)\n- Array can be empty\n- Array can have single element",
+    "difficulty": 1,
+    "target_tags": ["off_by_one_error", "incorrect_loop_boundary"],
+    "domain": "arrays"
+  },
+  {
+    "id": "p_004",
+    "title": "Check if Array is Sorted",
+    "description": "Given an integer array, return true if it is sorted in non-decreasing order, false otherwise.\n\nExample:\nInput: [1, 2, 2, 3, 5]\nOutput: true\n\nInput: [1, 3, 2]\nOutput: false\n\nConstraints:\n- Empty array is considered sorted\n- Single element array is considered sorted",
+    "difficulty": 1,
+    "target_tags": ["incorrect_loop_boundary", "base_condition_flaw", "off_by_one_error"],
+    "domain": "arrays"
+  },
+  {
+    "id": "p_005",
+    "title": "Find Duplicate in Array",
+    "description": "Given an integer array, return the first duplicate element found. If no duplicate exists, return -1.\n\nExample:\nInput: [1, 3, 4, 2, 2]\nOutput: 2\n\nConstraints:\n- Array can be empty\n- Return -1 if no duplicate found",
+    "difficulty": 2,
+    "target_tags": ["unnecessary_nested_loop", "missed_edge_case"],
+    "domain": "arrays"
+  },
+  {
+    "id": "p_006",
+    "title": "Two Sum",
+    "description": "Given an integer array and a target value, return the indices of the two numbers that add up to the target.\n\nExample:\nInput: nums = [2, 7, 11, 15], target = 9\nOutput: [0, 1]\n\nConstraints:\n- Exactly one solution exists\n- Cannot use the same element twice\n- Return indices in any order",
+    "difficulty": 2,
+    "target_tags": ["unnecessary_nested_loop", "redundant_computation"],
+    "domain": "arrays"
+  },
+  {
+    "id": "p_007",
+    "title": "Move Zeros to End",
+    "description": "Given an integer array, move all zeros to the end while maintaining the relative order of non-zero elements. Do this in-place.\n\nExample:\nInput: [0, 1, 0, 3, 12]\nOutput: [1, 3, 12, 0, 0]\n\nConstraints:\n- Must be in-place\n- Maintain relative order of non-zero elements\n- Array can be all zeros or no zeros",
+    "difficulty": 2,
+    "target_tags": ["incorrect_loop_boundary", "redundant_computation", "off_by_one_error"],
+    "domain": "arrays"
+  },
+  {
+    "id": "p_008",
+    "title": "Maximum Subarray Sum",
+    "description": "Given an integer array, find the contiguous subarray with the largest sum and return that sum.\n\nExample:\nInput: [-2, 1, -3, 4, -1, 2, 1, -5, 4]\nOutput: 6 (subarray [4, -1, 2, 1])\n\nConstraints:\n- Array contains at least one element\n- Array can contain all negative numbers",
+    "difficulty": 3,
+    "target_tags": ["base_condition_flaw", "missed_edge_case", "incorrect_loop_boundary"],
+    "domain": "arrays"
+  },
+  {
+    "id": "p_009",
+    "title": "Remove Duplicates from Sorted Array",
+    "description": "Given a sorted array, remove duplicates in-place and return the new length.\n\nExample:\nInput: [1, 1, 2, 3, 3]\nOutput: 3 (array becomes [1, 2, 3, ...])\n\nConstraints:\n- Must be in-place\n- Order must be maintained\n- Return the count of unique elements",
+    "difficulty": 2,
+    "target_tags": ["off_by_one_error", "incorrect_loop_boundary", "redundant_computation"],
+    "domain": "arrays"
+  },
+  {
+    "id": "p_010",
+    "title": "Best Time to Buy and Sell Stock",
+    "description": "Given an array where each element is the price of a stock on that day, return the maximum profit you can achieve. You may only complete one transaction.\n\nExample:\nInput: [7, 1, 5, 3, 6, 4]\nOutput: 5 (buy at 1, sell at 6)\n\nConstraints:\n- If no profit is possible return 0\n- Cannot sell before buying\n- Array can have all decreasing prices",
+    "difficulty": 3,
+    "target_tags": ["missed_edge_case", "base_condition_flaw", "redundant_computation"],
+    "domain": "arrays"
+  }
+]
