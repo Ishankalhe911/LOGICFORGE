@@ -44,3 +44,8 @@ export const getAnalytics = async (
   const res = await api.get<AnalyticsResponse>(`/analytics/${userId}`);
   return res.data;
 };
+
+export const getNextProblem = async (userId: string): Promise<Problem> => {
+  const res = await api.get<Problem>(`/problems/next/${userId}`);
+  return res.data;
+};
