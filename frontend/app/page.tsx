@@ -2,15 +2,36 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { getSessions } from "@/lib/api";
 
 export default function Home() {
   const [userId, setUserId] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleStart = () => {
-  if (!userId.trim()) return;
-  router.push(`/quiz?user=${userId}`);
-};
+  const handleStart = async () => {
+    if (!userId.trim()) return;
+    setLoading(true);
+
+    try {
+      const sessions = await getSessions(userId.trim());
+
+      if (sessions.total_sessions === 0) {
+        // new user — take quiz first
+        router.push(`/quiz?user=${userId.trim()}`);
+      } else {
+        // returning user — skip quiz, go straight to next problem
+        const nextSession = sessions.total_sessions + 1;
+        const lastProblemId = sessions.sessions[sessions.sessions.length - 1].problem_id;
+        router.push(`/problem/${lastProblemId}?user=${userId.trim()}&session=${nextSession}`);
+      }
+    } catch {
+      // user doesn't exist yet — send to quiz
+      router.push(`/quiz?user=${userId.trim()}`);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <main className="min-h-screen bg-gray-950 flex items-center justify-center">
@@ -27,7 +48,7 @@ export default function Home() {
 
         <div className="bg-gray-900 rounded-2xl border border-gray-800 p-8">
           <h2 className="text-white font-semibold text-lg mb-6">
-            Enter your ID to begin
+            Enter your ID to continue
           </h2>
 
           <input
@@ -41,10 +62,10 @@ export default function Home() {
 
           <button
             onClick={handleStart}
-            disabled={!userId.trim()}
+            disabled={!userId.trim() || loading}
             className="w-full bg-blue-600 hover:bg-blue-500 disabled:bg-gray-700 disabled:text-gray-500 text-white font-semibold py-3 rounded-xl transition text-sm"
           >
-            Start Training →
+            {loading ? "Checking..." : "Start Training →"}
           </button>
         </div>
 
