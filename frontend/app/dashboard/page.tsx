@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { getSessions, getAnalytics } from "@/lib/api";
+import { getSessions, getAnalytics, getNextProblem } from "@/lib/api";
 import { SessionsResponse, AnalyticsResponse } from "@/types";
 import RecurrenceGraph from "@/components/RecurrenceGraph";
 import SessionSummary from "@/components/SessionSummary";
@@ -14,16 +14,33 @@ export default function DashboardPage() {
 
   const [sessions, setSessions] = useState<SessionsResponse | null>(null);
   const [analytics, setAnalytics] = useState<AnalyticsResponse | null>(null);
+  const [nextProblemId, setNextProblemId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([getSessions(userId), getAnalytics(userId)])
-      .then(([s, a]) => {
-        setSessions(s);
-        setAnalytics(a);
-      })
-      .finally(() => setLoading(false));
-  }, [userId]);
+  Promise.all([getSessions(userId), getAnalytics(userId)])
+    .then(([s, a]) => {
+      setSessions(s);
+      setAnalytics(a);
+
+      // check session storage first before calling API
+      const cached = sessionStorage.getItem(`next_problem_${userId}`);
+      if (cached) {
+        setNextProblemId(cached);
+        return;
+      }
+
+      return getNextProblem(userId).then((problem) => {
+        setNextProblemId(problem.id);
+        // cache it so dashboard revisits don't regenerate
+        sessionStorage.setItem(`next_problem_${userId}`, problem.id);
+      });
+    })
+    .catch((err) => {
+      console.error("Dashboard load error:", err);
+    })
+    .finally(() => setLoading(false));
+}, [userId]);
 
   const nextSession = sessions ? sessions.total_sessions + 1 : 1;
 
@@ -48,7 +65,9 @@ export default function DashboardPage() {
           </span>
           <button
             onClick={() =>
-              router.push(`/problem/p_001?user=${userId}&session=${nextSession}`)
+              router.push(
+                `/problem/${nextProblemId || "p_001"}?user=${userId}&session=${nextSession}`
+              )
             }
             className="bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-4 py-2 rounded-xl transition"
           >
